@@ -1,10 +1,10 @@
 import './App.css'
+import Header from './component/Header/Header'
 
 function App() {
   return (
     <div className='app'>
-      <h1>Amazion Store </h1>
-      {/* Header */}
+      <Header />
       {/* Home */}
     </div>
   )
