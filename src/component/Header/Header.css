@@ -65,7 +65,7 @@
   justify-content: center;
 }
 
-.option__cart img {
+.option__cart > img {
   height: 40px;
 }
 
