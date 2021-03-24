@@ -71,6 +71,7 @@
 
 .cart__count {
   position: absolute;
+  color: #fff;
   top: 18px;
   right: 1;
 }
