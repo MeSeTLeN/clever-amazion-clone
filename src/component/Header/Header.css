@@ -10,6 +10,14 @@
   z-index: 100;
 }
 
+.header a:link {
+  text-decoration: none;
+}
+
+.header a:visited {
+  color: #fff;
+}
+
 .header__logo {
   width: 100px;
   margin: 0 20px;

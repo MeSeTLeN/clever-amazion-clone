@@ -23,10 +23,12 @@ function Header() {
       </form>
 
       <div className='header__nav'>
-        <div className='option option__sign'>
-          <span className='option_text_light'>Hello, Sign in</span>
-          <span className='option_text_bold'>Account & Lists</span>
-        </div>
+        <Link to='/login'>
+          <div className='option option__sign'>
+            <span className='option_text_light'>Hello, Sign in</span>
+            <span className='option_text_bold'>Account & Lists</span>
+          </div>
+        </Link>
 
         <div className='option option__orders'>
           <span className='option_text_light'>Returns</span>
