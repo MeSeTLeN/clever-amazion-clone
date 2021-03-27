@@ -1,9 +1,38 @@
 import React, { useState } from 'react'
 import './Login.css'
 import logoBlack from '../../assets/img_desktop/Login/logo_black.png'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { auth } from '../../firebase'
 
 function Login() {
+  const history = useHistory()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  function signIn(event) {
+    event.preventDefault()
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((auth) => {
+        history.push('/')
+      })
+      .catch((error) => alert(error.message))
+  }
+
+  function register(event) {
+    event.preventDefault()
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        if (auth) {
+          history.push('/')
+        }
+      })
+      .catch((error) => alert(error.message))
+  }
+
   return (
     <div className='login'>
       <Link to='/'>
@@ -15,12 +44,22 @@ function Login() {
 
         <form>
           <h5>E-mail</h5>
-          <input type='text' />
+          <input
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            type='text'
+          />
 
           <h5>Password</h5>
-          <input type='password' />
+          <input
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            type='password'
+          />
 
-          <button className='login__signInBtn'>Sign In</button>
+          <button onClick={signIn} className='login__signInBtn' type='submit'>
+            Sign In
+          </button>
         </form>
 
         <p>
@@ -28,7 +67,7 @@ function Login() {
           Notice.
         </p>
 
-        <button className='login__registerBtn'>
+        <button onClick={register} className='login__registerBtn'>
           Create your Amazon account
         </button>
       </div>
