@@ -5,9 +5,16 @@ import logo from '../../assets/img_desktop/Header/logo.png'
 import SearchIcon from '@material-ui/icons/Search'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../../StateProvider'
+import { auth } from '../../firebase'
 
 function Header() {
-  const [{ basket }, dispatch] = useStateValue()
+  const [{ basket, user }, dispatch] = useStateValue()
+
+  function handleAuthentication() {
+    if (user) {
+      auth.signOut()
+    }
+  }
 
   return (
     <div className='header'>
@@ -23,9 +30,11 @@ function Header() {
       </form>
 
       <div className='header__nav'>
-        <Link to='/login'>
-          <div className='option option__sign'>
-            <span className='option_text_light'>Hello, Sign in</span>
+        <Link to={!user && '/login'}>
+          <div onClick={handleAuthentication} className='option option__sign'>
+            <span className='option_text_light'>
+              Hello, {user ? 'Sign Out' : 'Sign In'}
+            </span>
             <span className='option_text_bold'>Account & Lists</span>
           </div>
         </Link>
