@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import CurrencyFormat from 'react-currency-format'
 import { Link, useHistory } from 'react-router-dom'
+import { dataBase } from '../../firebase'
 import { getBasketTotal } from '../../reducer'
 import { useStateValue } from '../../StateProvider'
 import CheckoutProduct from '../CheckoutProduct/CheckoutProduct'
@@ -36,8 +37,6 @@ function Payment() {
     getClientSecret()
   }, [basket])
 
-  console.log('The secret is >>>', clientSecret)
-
   async function handleSubmit(event) {
     event.preventDefault()
     setProcessing(true)
@@ -49,9 +48,24 @@ function Payment() {
       .then(({ paymentIntent }) => {
         // paymentIntent = payment confirmation
 
+        dataBase
+          .collection('users')
+          .doc(user?.uid)
+          .collection('orders')
+          .doc(paymentIntent.id)
+          .set({
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          })
+
         setSucceeded(true)
         setError(null)
         setProcessing(false)
+
+        dispatch({
+          type: 'EMPTY_BASKET',
+        })
 
         history.replace('/orders')
       })
@@ -124,7 +138,12 @@ function Payment() {
                   prefix={'$'}
                 />
 
-                <button disabled={processing || disabled || succeeded}>
+                <button
+                  className={
+                    disabled ? 'payment__btn_disabled' : 'payment__btn_active'
+                  }
+                  disabled={processing || disabled || succeeded}
+                >
                   <span>{processing ? <p>Processing</p> : 'Buy Now'}</span>
                 </button>
               </div>

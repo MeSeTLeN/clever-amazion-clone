@@ -41,10 +41,12 @@ function Header() {
           </div>
         </Link>
 
-        <div className='option option__orders'>
-          <span className='option_text_light'>Returns</span>
-          <span className='option_text_bold'>& Orders</span>
-        </div>
+        <Link to='/orders'>
+          <div className='option option__orders'>
+            <span className='option_text_light'>Returns</span>
+            <span className='option_text_bold'>& Orders</span>
+          </div>
+        </Link>
 
         <Link to='/checkout'>
           <div className='option option__cart'>
