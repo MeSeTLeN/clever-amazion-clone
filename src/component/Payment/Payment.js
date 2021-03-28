@@ -103,6 +103,15 @@ function Payment() {
           </div>
           <div className='payment__details'>
             <form onSubmit={handleSubmit}>
+              <div className='payment__info'>
+                <span>
+                  Payment through
+                  <button href='https://stripe.com/'>Stripe</button>
+                </span>
+                <span>test card number 42 until end</span>
+                <span>expample 4242 4242 4242 4242 04/24 242 42424</span>
+              </div>
+
               <CardElement onChange={handleChange} />
 
               <div className='payment__priceContainer'>
