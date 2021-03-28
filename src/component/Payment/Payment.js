@@ -19,7 +19,7 @@ function Payment() {
   const [disabled, setDisabled] = useState(true)
   const [succeeded, setSucceeded] = useState(false)
   const [processing, setProcessing] = useState('')
-  const [clientSecret, setClientSecret] = useState('')
+  const [clientSecret, setClientSecret] = useState(true)
 
   useEffect(() => {
     //   generate stripe secret allows to charge customer
@@ -35,6 +35,8 @@ function Payment() {
 
     getClientSecret()
   }, [basket])
+
+  console.log('The secret is >>>', clientSecret)
 
   async function handleSubmit(event) {
     event.preventDefault()
